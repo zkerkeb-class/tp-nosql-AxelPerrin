@@ -4,6 +4,8 @@ import 'dotenv/config';
 
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import pokemonsRouter from './routes/pokemons.js';
 import authRouter from './routes/auth.js';
 import favoritesRouter from './routes/favorites.js';
@@ -11,19 +13,21 @@ import statsRouter from './routes/stats.js';
 import teamsRouter from './routes/teams.js';
 import connectDB from './db/connect.js';
 
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
 app.use(cors()); // Permet les requêtes cross-origin (ex: frontend sur un autre port)
 
 app.use('/assets', express.static('assets')); // Permet d'accéder aux fichiers dans le dossier "assets" via l'URL /assets/...
+app.use('/public', express.static(path.join(__dirname, 'public'))); // Servir les fichiers statiques du frontend
 
 app.use(express.json());
 
 
 app.get('/', (req, res) => {
-    res.send('Hello, World!');
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Routes Auth
