@@ -379,4 +379,4 @@ POST http://localhost:3000/api/teams
 
 ## Auteur
 
-Projet realise dans le cadre du TP NoSQL.
+Axel PERRIN
